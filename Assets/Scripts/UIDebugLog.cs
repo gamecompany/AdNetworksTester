@@ -14,7 +14,9 @@ public class UIDebugLog : MonoBehaviour
     //
 
     [SerializeField]
-    private Text console;
+    private Text heyzap;
+    [SerializeField]
+    private Text chartboost;
 
 	// • • • • • • • • • • • • • • • • • • • • //
 
@@ -34,10 +36,17 @@ public class UIDebugLog : MonoBehaviour
 	// U s e r
 	//
 
-    public void Display(string text)
+    public void DisplayHeyzap(string text)
     {
-        if (!console) return;
+        if (!heyzap) return;
 
-        console.text = text;
+        heyzap.text = "Heyzap:" + text;
+    }
+
+    public void DisplayChartboost(string text)
+    {
+        if (!chartboost) return;
+
+        chartboost.text = "Chartboost" + text;
     }
 }

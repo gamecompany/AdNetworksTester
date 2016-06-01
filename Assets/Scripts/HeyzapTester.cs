@@ -54,12 +54,12 @@ public class HeyzapTester : MonoBehaviour
             // Show the ad
             HZVideoAd.ShowWithOptions(showOptions);
             // Debug it
-            debug.Display("Ad played");
+            debug.DisplayHeyzap("Ad played");
             // E x i t
             return;
         }
         // Failed debug it
-        debug.Display("Ad video not available");
+        debug.DisplayHeyzap("Ad video not available");
     }
 
 
@@ -73,11 +73,11 @@ public class HeyzapTester : MonoBehaviour
             // Show the ad
             HZVideoAd.Show();
             // Debug it
-            debug.Display("Ad played");
+            debug.DisplayHeyzap("Ad played");
             // E x i t
             return;
         }
         // Failed debug it
-        debug.Display("Ad video not available");
+        debug.DisplayHeyzap("Ad video not available");
     }
 }
