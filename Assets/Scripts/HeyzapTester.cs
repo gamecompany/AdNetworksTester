@@ -39,21 +39,45 @@ public class HeyzapTester : MonoBehaviour
 	// U s e r
 	//
 
-    public void PlayAd()
+    public void PlayAdWithTag(string hzShowOptionTag)
     {
-        HZVideoAd.Fetch();
-
-        if(!HZVideoAd.IsAvailable())
+        // default tag
+        string optionTag = hzShowOptionTag;
+        // fetch the video
+        HZVideoAd.Fetch(optionTag);
+        // Create show options
+        HZShowOptions showOptions = new HZShowOptions();
+        showOptions.Tag = optionTag;
+        // Check for availability
+        if (HZVideoAd.IsAvailable(optionTag))
         {
-            debug.Display("Ad video not available");
-
+            // Show the ad
+            HZVideoAd.ShowWithOptions(showOptions);
+            // Debug it
+            debug.Display("Ad played");
+            // E x i t
             return;
         }
+        // Failed debug it
+        debug.Display("Ad video not available");
+    }
 
-        HZVideoAd.Show();
 
-        //HZInterstitialAd.Show();
-
-        debug.Display("Ad played");
+    public void PlayAd()
+    {
+        // fetch the video
+        HZVideoAd.Fetch();
+        // Check for availability
+        if (HZVideoAd.IsAvailable())
+        {
+            // Show the ad
+            HZVideoAd.Show();
+            // Debug it
+            debug.Display("Ad played");
+            // E x i t
+            return;
+        }
+        // Failed debug it
+        debug.Display("Ad video not available");
     }
 }
