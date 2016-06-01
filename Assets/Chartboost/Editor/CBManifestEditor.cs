@@ -24,7 +24,7 @@ namespace ChartboostSDK
 			// only copy over a fresh copy of the AndroidManifest if one does not exist
 			if (!File.Exists(outputFile))
 			{
-				var inputFile = Path.Combine(EditorApplication.applicationContentsPath, "PlaybackEngines/androidplayer/AndroidManifest.xml");
+				var inputFile = Path.Combine(EditorApplication.applicationContentsPath, "PlaybackEngines/androidplayer/Apk/AndroidManifest.xml");
 				File.Copy(inputFile, outputFile);
 			}
 			CheckAndFixManifest();

@@ -17,6 +17,8 @@ public class UIDebugLog : MonoBehaviour
     private Text heyzap;
     [SerializeField]
     private Text chartboost;
+    [SerializeField]
+    private Text vungle;
 
 	// • • • • • • • • • • • • • • • • • • • • //
 
@@ -48,5 +50,12 @@ public class UIDebugLog : MonoBehaviour
         if (!chartboost) return;
 
         chartboost.text = "Chartboost" + text;
+    }
+
+    public void DisplayVungle(string text)
+    {
+        if (!vungle) return;
+
+        vungle.text = "Chartboost" + text;
     }
 }

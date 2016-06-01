@@ -10,9 +10,7 @@ public class ChartboostExample: MonoBehaviour
 	public GameObject inPlayIcon;
 	public GameObject inPlayText;
 	public Texture2D logo;
-	
 	private CBInPlay inPlayAd;
-
 	public Vector2 scrollPosition = Vector2.zero;
 	private List<string> delegateHistory;
 
@@ -34,7 +32,7 @@ public class ChartboostExample: MonoBehaviour
 	private Rect scrollRect;
 	private Rect scrollArea;
 	private Vector3 guiScale;
-	private float scale;
+	private float scale;    
 
     public UIDebugLog MyLog;
 
