@@ -19,24 +19,26 @@ public class UIDebugLog : MonoBehaviour
     private Text chartboost;
     [SerializeField]
     private Text vungle;
+    [SerializeField]
+    private Text Adcolony;
 
-	// • • • • • • • • • • • • • • • • • • • • //
+    // • • • • • • • • • • • • • • • • • • • • //
 
-	//
-	// P r o p e r t i e s
-	//
-	
-	// • • • • • • • • • • • • • • • • • • • • //
+    //
+    // P r o p e r t i e s
+    //
 
-	//
-	// U n i t y
-	//
+    // • • • • • • • • • • • • • • • • • • • • //
 
-	// • • • • • • • • • • • • • • • • • • • • //
+    //
+    // U n i t y
+    //
 
-	//
-	// U s e r
-	//
+    // • • • • • • • • • • • • • • • • • • • • //
+
+    //
+    // U s e r
+    //
 
     public void DisplayHeyzap(string text)
     {
@@ -56,6 +58,13 @@ public class UIDebugLog : MonoBehaviour
     {
         if (!vungle) return;
 
-        vungle.text = "Chartboost" + text;
+        vungle.text = "Vungle: " + text;
+    }
+
+    public void DisplayAdColony(string text)
+    {
+        if (!Adcolony) return;
+
+        Adcolony.text = "Adcolony: " + text;
     }
 }
