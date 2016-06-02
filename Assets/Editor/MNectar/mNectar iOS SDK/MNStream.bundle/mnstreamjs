@@ -1,0 +1,182 @@
+(function (external) {
+    var mnstream = external.mnstream = {};
+
+    var version = "1.0";
+
+    var call = mnstream._call = function (command) {
+        var iframe = document.createElement("iframe");
+        iframe.src = "mnstream://" + command;
+        document.documentElement.appendChild(iframe);
+		iframe.parentNode.removeChild(iframe);
+    };
+
+    var url = null;
+    var width = 0;
+    var height = 0;
+    var connectTimeout = 0;
+    var idleTimeout = 0;
+    var onopen = null;
+    var onclose = null;
+    var onerror = null;
+    var onfailed = null;
+    var onidletimeout = null;
+
+    mnstream.__defineGetter__("url", function () {
+        return url;
+    });
+
+    mnstream.__defineGetter__("width", function () {
+        return width;
+    });
+
+    mnstream.__defineSetter__("width", function (w) {
+        width = w;
+    });
+
+    mnstream.__defineGetter__("height", function () {
+        return height;
+    });
+
+    mnstream.__defineSetter__("height", function (h) {
+        height = h;
+    });
+
+    mnstream.__defineGetter__("connectTimeout", function () {
+        return connectTimeout;
+    });
+
+    mnstream.__defineSetter__("connectTimeout", function (timeout) {
+        connectTimeout = timeout;
+    });
+
+    mnstream.__defineGetter__("idleTimeout", function () {
+        return idleTimeout;
+    });
+
+    mnstream.__defineSetter__("idleTimeout", function (timeout) {
+        idleTimeout = timeout;
+    });
+
+    mnstream.__defineGetter__("onopen", function () {
+        return onopen;
+    });
+
+    mnstream.__defineSetter__("onopen", function (callback) {
+        onopen = callback;
+    });
+
+    mnstream.__defineGetter__("onclose", function () {
+        return onclose;
+    });
+
+    mnstream.__defineSetter__("onclose", function (callback) {
+        onclose = callback;
+    });
+
+    mnstream.__defineGetter__("onmessage", function () {
+        return onmessage;
+    });
+
+    mnstream.__defineSetter__("onmessage", function (callback) {
+        onmessage = callback;
+    });
+
+    mnstream.__defineGetter__("onerror", function () {
+        return onerror;
+    });
+
+    mnstream.__defineSetter__("onerror", function (callback) {
+        onerror = callback;
+    });
+
+    mnstream.__defineGetter__("onfailed", function () {
+        return onfailed;
+    });
+
+    mnstream.__defineSetter__("onfailed", function (callback) {
+        onfailed = callback;
+    });
+
+    mnstream.__defineGetter__("onidletimeout", function () {
+        return onidletimeout;
+    });
+
+    mnstream.__defineSetter__("onidletimeout", function (callback) {
+        onidletimeout = callback;
+    });
+
+    mnstream._onopen = function () {
+        if (typeof onopen === "function") {
+            onopen(mnstream);
+        }
+    };
+
+    mnstream._onclose = function () {
+        if (typeof onclose === "function") {
+            onclose(mnstream);
+        }
+    };
+
+    mnstream._onmessage = function () {
+        if (typeof onmessage === "function") {
+            onmessage(mnstream);
+        }
+    };
+
+    mnstream._onerror = function () {
+        if (typeof onerror === "function") {
+            onerror(mnstream);
+        }
+    };
+
+    mnstream._onfailed = function () {
+        if (typeof onfailed === "function") {
+            onfailed(mnstream);
+        }
+    };
+
+    mnstream._onidletimeout = function () {
+        if (typeof onidletimeout === "function") {
+            onidletimeout(mnstream);
+        }
+    };
+
+    mnstream.open = function (url_) {
+        if (url_) {
+            url = url_;
+
+            setTimeout(function () {
+                call("open?url=" + encodeURIComponent(url) + "&w=" + width + "&h=" + height + "&ct=" + connectTimeout + "&it=" + idleTimeout);
+            }, 0);
+
+            return mnstream;
+        }
+    };
+
+    mnstream.close = function () {
+        call("close");
+    };
+
+    mnstream.position = function (x, y, w, h, uo, vo) {
+        call("position?x=" + x + "&y=" + y + "&w=" + w + "&h=" + h + "&uo=" + uo + "&vo=" + vo);
+    };
+
+    mnstream.reconnect = function (url_) {
+        url = url_ || url;
+
+        if (url) {
+            setTimeout(function () {
+                call("reconnect?url=" + encodeURIComponent(url) + "&w=" + width + "&h=" + height + "&ct=" + connectTimeout + "&it=" + idleTimeout);
+            });
+        }
+    };
+
+    mnstream.mute = function () {
+        call("mute");
+    };
+
+    mnstream.unmute = function () {
+        call("unmute");
+    };
+
+})(window);
