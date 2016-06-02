@@ -30,7 +30,8 @@ public class HeyzapTester : MonoBehaviour
 
     void Start()
     {
-        HeyzapAds.Start("cde2146866f96c9ad90736c1af512e13", HeyzapAds.FLAG_NO_OPTIONS);
+        // Game Company B (Free game studio)'s Publisher ID is: ef2a0c12b6d378ddce5063ca08a660b9
+        HeyzapAds.Start("ef2a0c12b6d378ddce5063ca08a660b9", HeyzapAds.FLAG_NO_OPTIONS);
     }
 
 	// • • • • • • • • • • • • • • • • • • • • //
