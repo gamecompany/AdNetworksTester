@@ -16,9 +16,9 @@ public class mNectarTester : MonoBehaviour
     [SerializeField]
     private UIDebugLog debug;
     [SerializeField]
-    private int adSelected;
+    private string rewardedAdUnitID;
     [SerializeField]
-    private string[] AD_UNIT_ID;
+    private string interstitialAdUnitID;
 
     // • • • • • • • • • • • • • • • • • • • • //
 
@@ -26,34 +26,16 @@ public class mNectarTester : MonoBehaviour
     // P r o p e r t i e s
     //
 
-    public bool validAdID
-    {
-        get { return -1 != adSelected; }
-    }
-
-    public string AdSelected
-    {
-        get { return AD_UNIT_ID[adSelected]; }
-    }
-
     // • • • • • • • • • • • • • • • • • • • • //
 
     //
     // U n i t y
     //
 
-    void OnValidate()
-    {
-        if (null == AD_UNIT_ID || 0 == AD_UNIT_ID.Length)
-            adSelected = -1;
-    }
-
     void Start()
     {
-        if(validAdID)
-        {
-            MNectar.initAdUnit(AdSelected);
-        }
+        MNectar.initAdUnit(rewardedAdUnitID);
+        MNectar.initAdUnit(interstitialAdUnitID);
     }
 
 	// • • • • • • • • • • • • • • • • • • • • //
@@ -64,20 +46,32 @@ public class mNectarTester : MonoBehaviour
 
     public void PlayRewardableAd()
     {
-        // E x i t
-        if (!validAdID) return;
+        MNectar.requestRewardable(rewardedAdUnitID);
 
-        MNectar.requestRewardable(AdSelected);
-
-        if(MNectar.isRewardableReady(AdSelected))
+        if(MNectar.isRewardableReady(rewardedAdUnitID))
         {
-            MNectar.showRewardable(AdSelected);
+            MNectar.showRewardable(rewardedAdUnitID);
 
-            debug.Display("Ad played");
+            debug.Display("Rewarded ad played");
 
             return;
         }
 
-        debug.Display("Ad failed");
+        debug.DisplayError("Rewarded not ready");
+    }
+    public void PlayInterstitialAd()
+    {
+        MNectar.requestInterstitial(interstitialAdUnitID);
+
+        if (MNectar.isInterstitialReady(interstitialAdUnitID))
+        {
+            MNectar.showInterstitial(interstitialAdUnitID);
+
+            debug.Display("Interstitial ad played");
+
+            return;
+        }
+
+        debug.DisplayError("Interstitial not ready");
     }
 }

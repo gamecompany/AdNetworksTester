@@ -13,6 +13,8 @@ public class UIDebugLog : MonoBehaviour
     // V a r i a b l e s
     //
 
+    private Color consoleNormalTextColor;
+
     [SerializeField]
     private Text console;
 
@@ -21,12 +23,22 @@ public class UIDebugLog : MonoBehaviour
 	//
 	// P r o p e r t i e s
 	//
+
+    public Color NormalColorText
+    {
+        get { return consoleNormalTextColor; }
+    }
 	
 	// • • • • • • • • • • • • • • • • • • • • //
 
 	//
 	// U n i t y
 	//
+
+    void Start()
+    {
+        consoleNormalTextColor = console.color;
+    }
 
 	// • • • • • • • • • • • • • • • • • • • • //
 
@@ -38,6 +50,14 @@ public class UIDebugLog : MonoBehaviour
     {
         if (!console) return;
 
+        console.color = NormalColorText;
+        console.text = text;
+    }
+    public void DisplayError(string text)
+    {
+        if (!console) return;
+
+        console.color = Color.red;
         console.text = text;
     }
 }
