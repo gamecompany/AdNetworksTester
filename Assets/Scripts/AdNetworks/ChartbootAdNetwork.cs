@@ -17,6 +17,7 @@ public static class ChartbootAdNetwork
     {
         Chartboost.Create();
 		Chartboost.cacheRewardedVideo(CBLocation.Default);
+        UIDebugLog.I["Chartboost"].Update("initialize - " + Chartboost.isInitialized());
     }
 
 	public static bool PlayAd(string placementName, bool isIncentivized)
@@ -73,6 +74,8 @@ public static class ChartbootAdNetwork
 
     public static bool PlayAd(UnityEngine.Events.UnityAction onAdPlay, UnityEngine.Events.UnityAction adNotAviable)
     {
+        //Chartboost.showRewardedVideo(CBLocation.Default);
+        //Chartboost.cacheRewardedVideo(CBLocation.Default);
         if (Chartboost.hasRewardedVideo(CBLocation.Default))
         {
             Chartboost.showRewardedVideo(CBLocation.Default);

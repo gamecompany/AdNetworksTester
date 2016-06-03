@@ -7,6 +7,9 @@ public class UIDebugLog : MonoBehaviour
     // UIDebugLog
     // structs & classes
 
+    // I had to make a singleton because most of the adNetworks are not Mono
+    private static UIDebugLog instance;
+
     [System.Serializable]
     public class Label
     {
@@ -44,6 +47,11 @@ public class UIDebugLog : MonoBehaviour
     // P r o p e r t i e s
     //
 
+    public static UIDebugLog I
+    {
+        get { return instance; }
+    }
+
     public Label this[string labelName]
     {
         get
@@ -60,6 +68,11 @@ public class UIDebugLog : MonoBehaviour
     //
     // U n i t y
     //
+
+    void Awake()
+    {
+        instance = this;
+    }
 
     // • • • • • • • • • • • • • • • • • • • • //
 

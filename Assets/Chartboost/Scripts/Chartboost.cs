@@ -839,7 +839,7 @@ namespace ChartboostSDK {
 				CBExternal.init();
 				CBExternal.setGameObjectName(gameObject.name);
                 // We had a warning line used to be like this: DontDestroyOnLoad(gameObject), warning was: Don't Destroy can only be appylied to root objects
-                DontDestroyOnLoad(gameObject.transform.root);
+                DontDestroyOnLoad(gameObject);
 
 				#if UNITY_ANDROID
      				windowRect = new Rect (0, 0, Screen.width, Screen.height);

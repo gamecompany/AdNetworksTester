@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
+#if USE_CHARTBOOST
+using ChartboostSDK;
+#endif
 
 public class ChartboostTester : MonoBehaviour
 {
