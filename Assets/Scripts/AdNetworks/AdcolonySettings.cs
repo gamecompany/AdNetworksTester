@@ -17,6 +17,23 @@ public class AdcolonySettings : ScriptableObject
         public string Ad4Trailers;      // Game Trailer Button
         public string Ad5Death;		// Death Extra Life Popup
 
+        public string this[int i]
+        {
+            get
+            {
+                switch(i)
+                {
+                    case 0: return Ad1Launch;
+                    case 1: return Ad2FreeGame;
+                    case 2: return Ad3MoreGame;
+                    case 3: return Ad4Trailers;
+                    case 4: return Ad5Death;
+                }
+
+                return null;
+            }
+        }
+
         public string[] GetAll()
         {
             return new string[] { Ad1Launch, Ad2FreeGame, Ad3MoreGame, Ad4Trailers, Ad5Death };

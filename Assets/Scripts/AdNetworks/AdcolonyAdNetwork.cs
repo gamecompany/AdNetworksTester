@@ -73,6 +73,8 @@ public static class AdcolonyAdNetwork
     {
         // Get the zone ID name for the ad
         string zoneID = GetZoneID(i);
+
+        Debug.LogFormat("AdColony.playad.zone: {0}", zoneID);
         // Is it ready to display
         if (AdColony.IsVideoAvailable(zoneID))
         {
@@ -91,19 +93,9 @@ public static class AdcolonyAdNetwork
 
     public static string GetZoneID(int index)
     {
-        UnityAdsSettings settings = UnityAdsSettings.Instance;
+        AdcolonySettings settings = AdcolonySettings.Instance;
 
-        switch (index + 1)
-        {
-            case 1: return settings.Ad1Launch;
-            case 2: return settings.Ad2FreeGame;
-            case 3: return settings.Ad3MoreGame;
-            case 4: return settings.Ad4Trailers;
-            case 5: // Fall through
-            case 6: return settings.Ad5Death;
-        }
-
-        return null;
+        return settings.zoneID[index];
     }
 
 #endif

@@ -15,7 +15,7 @@ public static class ChartbootAdNetwork
 	[RuntimeInitializeOnLoadMethod]
     static void Initialize()
     {
-    	Chartboost.Create();
+        Chartboost.Create();
 		Chartboost.cacheRewardedVideo(CBLocation.Default);
     }
 
