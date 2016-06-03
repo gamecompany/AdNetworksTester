@@ -81,4 +81,9 @@ public class HeyzapTester : MonoBehaviour
         // Failed debug it
         debug.Display("Ad video not available");
     }
+
+    public void ShowMediationTestSuite()
+    {
+        HeyzapAds.ShowMediationTestSuite();
+    }
 }
