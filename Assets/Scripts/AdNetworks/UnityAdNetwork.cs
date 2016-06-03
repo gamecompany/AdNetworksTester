@@ -1,8 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
-
 using UnityEngine.Advertisements;
-using UnityEngine.Assertions;
 
 public static class UnityAdNetwork
 {
@@ -26,23 +23,23 @@ public static class UnityAdNetwork
 
         // we need to translate the placement from what the code calls it to
         // what the ad network knows it as
-#if USING_ADCENTRAL
+#if AD_CENTRAL
         int index = AdCentral.IndexOfAdPlacement(placementName);
 #else
         int index = 0;
 #endif
         // Get the ad zone name
-        string unityAdName = GetZoneID(index);
+        string zoneID = GetZoneID(index);
 
-        if(null == unityAdName)
+        if(null == zoneID)
         {
             Debug.LogErrorFormat("Unknown ad placement \"{0}\"; Unity Ads doesn't know what to show.", placementName);
             return false;
         }
 
-        if (Advertisement.IsReady (unityAdName)) 
+        if (Advertisement.IsReady (zoneID)) 
 		{
-			Advertisement.Show(unityAdName);
+			Advertisement.Show(zoneID);
 			return true;
 		}
 		return false;

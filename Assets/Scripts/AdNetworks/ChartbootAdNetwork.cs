@@ -33,7 +33,6 @@ public static class ChartbootAdNetwork
 
 	private static bool PlayChartBoostIncentivizedVideoAd()
     {
-        Chartboost.cacheRewardedVideo(CBLocation.Default);
         if (Chartboost.hasRewardedVideo(CBLocation.Default)) 
 		{
 			Chartboost.showRewardedVideo(CBLocation.Default);
@@ -49,8 +48,7 @@ public static class ChartbootAdNetwork
         // Note: We can used named locations.
         // Chartboost.showInterstitial(CBLocation.locationFromName("CustomLocation"));
         // https://answers.chartboost.com/hc/en-us/articles/204888915
-
-        Chartboost.cacheInterstitial(CBLocation.Default);
+        
         if (Chartboost.hasInterstitial(CBLocation.Default)) 
 		{
 			Chartboost.showInterstitial(CBLocation.Default);
@@ -63,7 +61,6 @@ public static class ChartbootAdNetwork
 
     public static bool PlayAd()
     {
-        Chartboost.cacheRewardedVideo(CBLocation.Default);
         if (Chartboost.hasRewardedVideo(CBLocation.Default))
         {
             Chartboost.showRewardedVideo(CBLocation.Default);
@@ -76,7 +73,6 @@ public static class ChartbootAdNetwork
 
     public static bool PlayAd(UnityEngine.Events.UnityAction onAdPlay, UnityEngine.Events.UnityAction adNotAviable)
     {
-        Chartboost.cacheRewardedVideo(CBLocation.Default);
         if (Chartboost.hasRewardedVideo(CBLocation.Default))
         {
             Chartboost.showRewardedVideo(CBLocation.Default);
