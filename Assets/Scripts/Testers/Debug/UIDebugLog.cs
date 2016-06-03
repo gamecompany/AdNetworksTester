@@ -7,6 +7,28 @@ public class UIDebugLog : MonoBehaviour
     // UIDebugLog
     // structs & classes
 
+    [System.Serializable]
+    public class Label
+    {
+        public string name;
+        public string prefix;
+        public Text label;
+
+        public void Update(string text)
+        {
+            if (!label) return;
+
+            label.text = prefix + text;
+        }
+
+        public void Clear()
+        {
+            if (!label) return;
+
+            label.text = prefix;
+        }
+    }
+
     // • • • • • • • • • • • • • • • • • • • • //
 
     //
@@ -14,21 +36,24 @@ public class UIDebugLog : MonoBehaviour
     //
 
     [SerializeField]
-    private Text heyzap;
-    [SerializeField]
-    private Text chartboost;
-    [SerializeField]
-    private Text vungle;
-    [SerializeField]
-    private Text Adcolony;
-    [SerializeField]
-    private Text unity;
+    private Label[] label;
 
     // • • • • • • • • • • • • • • • • • • • • //
 
     //
     // P r o p e r t i e s
     //
+
+    public Label this[string labelName]
+    {
+        get
+        {
+            foreach (Label l in label)
+                if (l.name.Equals(labelName)) return l;
+
+            return default(Label);
+        }
+    }
 
     // • • • • • • • • • • • • • • • • • • • • //
 
@@ -42,38 +67,8 @@ public class UIDebugLog : MonoBehaviour
     // U s e r
     //
 
-    public void DisplayHeyzap(string text)
+    public void ClearText(string labelName)
     {
-        if (!heyzap) return;
-
-        heyzap.text = "Heyzap: " + text;
-    }
-
-    public void DisplayChartboost(string text)
-    {
-        if (!chartboost) return;
-
-        chartboost.text = "Chartboost: " + text;
-    }
-
-    public void DisplayVungle(string text)
-    {
-        if (!vungle) return;
-
-        vungle.text = "Vungle: " + text;
-    }
-
-    public void DisplayAdColony(string text)
-    {
-        if (!Adcolony) return;
-
-        Adcolony.text = "Adcolony: " + text;
-    }
-
-    public void DisplayUnity(string text)
-    {
-        if (!unity) return;
-
-        unity.text = "Unity: " + text;
+        this[labelName].Clear();
     }
 }

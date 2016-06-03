@@ -36,6 +36,8 @@ public class ChartboostTester : MonoBehaviour
 
     public void PlayAd()
     {
-        ChartbootAdNetwork.PlayAd(() => debug.DisplayChartboost("Ad played"), () => debug.DisplayChartboost("Ad is not ready"));
+        UIDebugLog.Label label = debug["Chartboost"];
+
+        ChartbootAdNetwork.PlayAd(() => label.Update("Ad played"), () => label.Update("Ad is not ready"));
     }
 }

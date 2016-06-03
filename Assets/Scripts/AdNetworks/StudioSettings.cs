@@ -23,7 +23,7 @@ public class StudioSettings : ScriptableObject
         {
             if (instance == null)
             {
-				instance = AdNetworkSettingsHelper.GetResourceInstance<StudioSettings>("_Scripts/Advertising", "Resources", "StudioSettings", "asset");
+				instance = AdNetworkSettingsHelper.GetResourceInstance<StudioSettings>("Scripts/AdNetworks", "Resources", "StudioSettings", "asset");
 			}
 			return instance;
         }

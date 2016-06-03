@@ -25,8 +25,6 @@ public static class AdcolonyAdNetwork
 
 	public static bool PlayAd(string placementName, bool isIncentivized)
 	{
-		AdcolonySettings settings = AdcolonySettings.Instance;
-
         // we need to translate the placement from what the code calls it to
         // what the ad network knows it as
 #if AD_CENTRAL

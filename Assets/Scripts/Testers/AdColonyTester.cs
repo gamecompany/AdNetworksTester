@@ -35,6 +35,8 @@ public class AdColonyTester : MonoBehaviour
 
     public void PlayAd()
     {
-        AdcolonyAdNetwork.PlayAd(0, ()=>debug.DisplayAdColony("Ad played"), ()=>debug.DisplayAdColony("Ad is not ready"));
+        UIDebugLog.Label label = debug["AdColony"];
+
+        AdcolonyAdNetwork.PlayAd(0, () => label.Update("Ad played"), () => label.Update("Ad is not ready"));
     }
 }

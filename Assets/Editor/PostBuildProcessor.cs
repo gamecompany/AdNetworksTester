@@ -20,12 +20,14 @@ public class PostBuildProcessor : MonoBehaviour
 
 	[PostProcessBuild]
 	public static void OnPostprocessBuild (BuildTarget buildTarget, string path)
-	{
+    {
+#if UNITY_IOS
 		//if (buildTarget != BuildTarget.iPhone) { // For Unity < 5
 		if (buildTarget != BuildTarget.iOS) {
 			Debug.LogWarning("Target is not iOS. AdColonyPostProcess will not run");
 			return;
     }
+#endif
 
 #if !UNITY_CLOUD_BUILD
     Debug.Log ("OnPostprocessBuild");

@@ -50,6 +50,9 @@ namespace ChartboostSDK {
 	            if (instance == null)
 	            {
 	                instance = Resources.Load(cbSettingsAssetName) as CBSettings;
+
+                    Debug.LogFormat("ChartboostSettings: {0}", instance);
+
 	                if (instance == null)
 	                {
 	                    // If not found, autocreate the asset object.

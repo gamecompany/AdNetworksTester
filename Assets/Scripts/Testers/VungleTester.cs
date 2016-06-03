@@ -21,20 +21,24 @@ public class VungleTester : MonoBehaviour
 
         Vungle.init(AndroidID, iOSID, WindowsID);
 
+        UIDebugLog.Label label = debug["Vungle"];
+
         Vungle.adPlayableEvent += (isAdAvailable) =>
         {
             if (isAdAvailable)
             {
-                debug.DisplayVungle("An ad is ready to show!");
+                label.Update("An ad is ready to show!");
             }
             else {
-                debug.DisplayVungle("No ad is available at this moment.");
+                label.Update("No ad is available at this moment.");
             }
         };
     }
 
     public void PlayAd()
     {
-        VungleAdNetwork.PlayAd(() => { debug.DisplayVungle("Ad played"); }, () => { debug.DisplayVungle("Ad is not avaiable"); });
+        UIDebugLog.Label label = debug["Vungle"];
+
+        VungleAdNetwork.PlayAd(() => { label.Update("Ad played"); }, () => { label.Update("Ad is not avaiable"); });
     }
 }

@@ -36,6 +36,8 @@ public class UnityAdsTester : MonoBehaviour
 
     public void PlayAd()
     {
-        UnityAdNetwork.PlayAd(0, () => debug.DisplayUnity("Ad played"), () => debug.DisplayUnity("Ad is not ready"));
+        UIDebugLog.Label label = debug["UnityAds"];
+
+        UnityAdNetwork.PlayAd(0, () => label.Update("Ad played"), () => label.Update("Ad is not ready"));
     }
 }
