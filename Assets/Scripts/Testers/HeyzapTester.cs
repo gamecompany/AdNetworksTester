@@ -14,6 +14,8 @@ public class HeyzapTester : MonoBehaviour
     //
 
     [SerializeField]
+    private bool selfInitialize;
+    [SerializeField]
     private UIDebugLog debug;
 
 	// • • • • • • • • • • • • • • • • • • • • //
@@ -30,6 +32,9 @@ public class HeyzapTester : MonoBehaviour
 
     void Start()
     {
+        // E x i t: this will be handle on HeyzapAdNetwork
+        if (!selfInitialize) return;
+
         HeyzapAds.Start("cde2146866f96c9ad90736c1af512e13", HeyzapAds.FLAG_NO_OPTIONS);
     }
 
@@ -65,19 +70,6 @@ public class HeyzapTester : MonoBehaviour
 
     public void PlayAd()
     {
-        // fetch the video
-        HZVideoAd.Fetch();
-        // Check for availability
-        if (HZVideoAd.IsAvailable())
-        {
-            // Show the ad
-            HZVideoAd.Show();
-            // Debug it
-            debug.DisplayHeyzap("Ad played");
-            // E x i t
-            return;
-        }
-        // Failed debug it
-        debug.DisplayHeyzap("Ad video not available");
+        HeyzapAdNetwork.PlayAd(() => debug.DisplayHeyzap("Ad played"), () => debug.DisplayHeyzap("Ad video not available"));
     }
 }

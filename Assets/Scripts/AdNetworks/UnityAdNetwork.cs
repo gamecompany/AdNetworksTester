@@ -15,7 +15,7 @@ public static class UnityAdNetwork
 
             Debug.LogFormat("Settings: {0}", settings);
 
-			Advertisement.Initialize("116574", testMode: settings.ShowTestAds);
+			Advertisement.Initialize(settings.AppID, testMode: settings.ShowTestAds);
 
         }
     }
@@ -34,11 +34,16 @@ public static class UnityAdNetwork
         // Get the ad zone name
         string unityAdName = GetZoneID(index);
 
-		if (Advertisement.IsReady (unityAdName)) 
+        if(null == unityAdName)
+        {
+            Debug.LogErrorFormat("Unknown ad placement \"{0}\"; Unity Ads doesn't know what to show.", placementName);
+            return false;
+        }
+
+        if (Advertisement.IsReady (unityAdName)) 
 		{
-			bool resultBool = true;
 			Advertisement.Show(unityAdName);
-			return resultBool;
+			return true;
 		}
 		return false;
 	}
@@ -85,18 +90,12 @@ public static class UnityAdNetwork
 
         switch (index + 1)
         {
-            case 1: return /*settings.Ad1Launch*/ "ad1Launch";
+            case 1: return settings.Ad1Launch;
             case 2: return settings.Ad2FreeGame;
             case 3: return settings.Ad3MoreGame;
             case 4: return settings.Ad4Trailers;
             case 5: // Fall through
             case 6: return settings.Ad5Death;
-            // D e f a u l t
-            default:
-                {
-                    Debug.LogErrorFormat("Unknown ad placement \"{0}\"; Unity Ads doesn't know what to show.", index + 1);
-                    break;
-                }
         }
 
         return null;

@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class UnityAdsTester : MonoBehaviour
+public class ChartboostTester : MonoBehaviour
 {
     //
-    // UnityAdsTester
+    // ChartboostTester
     // structs & classes
 
     // • • • • • • • • • • • • • • • • • • • • //
@@ -12,7 +12,7 @@ public class UnityAdsTester : MonoBehaviour
     //
     // V a r i a b l e s
     //
-    
+
     [SerializeField]
     private UIDebugLog debug;
 
@@ -36,6 +36,6 @@ public class UnityAdsTester : MonoBehaviour
 
     public void PlayAd()
     {
-        UnityAdNetwork.PlayAd(0, () => debug.DisplayUnity("Ad played"), () => debug.DisplayUnity("Ad is not ready"));
+        ChartbootAdNetwork.PlayAd(() => debug.DisplayChartboost("Ad played"), () => debug.DisplayChartboost("Ad is not ready"));
     }
 }

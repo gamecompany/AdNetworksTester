@@ -24,10 +24,9 @@ public static class AdNetworkSettingsHelper
 		 string extension)
 		 where T : ScriptableObject
 	{
-		T instance = Resources.Load(settingsPathExceptFinalFolder+ "/" +settingsFinalFolder+ "/" +resourceName+ "." +extension) as T;
+		T instance = Resources.Load(resourceName) as T;
 		if (instance == null)
 		{
-            Debug.Log("Instance doesn't exists");
 			// The object couldn't be found. Create it.
 			instance = ScriptableObject.CreateInstance<T>();
 			#if UNITY_EDITOR
