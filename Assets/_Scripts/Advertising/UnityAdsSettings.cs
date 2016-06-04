@@ -25,7 +25,7 @@ public class UnityAdsSettings : ScriptableObject
         {
             if (instance == null)
             {
-				instance = AdNetworkSettingsHelper.GetResourceInstance<UnityAdsSettings>("Scripts/AdNetworks", "Resources", "UnityAdsSettings", "asset");
+				instance = AdNetworkSettingsHelper.GetResourceInstance<UnityAdsSettings>("_Scripts/Advertising", "Resources", "UnityAdsSettings", "asset");
 			}
 			return instance;
         }

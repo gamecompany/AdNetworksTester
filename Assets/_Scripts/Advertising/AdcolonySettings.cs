@@ -60,7 +60,7 @@ public class AdcolonySettings : ScriptableObject
 		{
 			if (instance == null)
 			{
-				instance = AdNetworkSettingsHelper.GetResourceInstance<AdcolonySettings>("Scripts/AdNetworks", "Resources", "AdcolonySettings", "asset");
+				instance = AdNetworkSettingsHelper.GetResourceInstance<AdcolonySettings>("_Scripts/Advertising", "Resources", "AdcolonySettings", "asset");
 			}
 			return instance;
 		}

@@ -19,7 +19,7 @@ public class VungleSettings : ScriptableObject
         {
             if (instance == null)
             {
-				instance = AdNetworkSettingsHelper.GetResourceInstance<VungleSettings>("Scripts/AdNetworks", "Resources", "VungleSettings", "asset");
+				instance = AdNetworkSettingsHelper.GetResourceInstance<VungleSettings>("_Scripts/Advertising", "Resources", "VungleSettings", "asset");
 			}
 			return instance;
         }
