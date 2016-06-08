@@ -1,7 +1,4 @@
 ﻿using UnityEngine;
-#if USE_CHARTBOOST
-using ChartboostSDK;
-#endif
 
 public class ChartboostTester : MonoBehaviour
 {
@@ -21,18 +18,6 @@ public class ChartboostTester : MonoBehaviour
 	// • • • • • • • • • • • • • • • • • • • • //
 
 	//
-	// P r o p e r t i e s
-	//
-	
-	// • • • • • • • • • • • • • • • • • • • • //
-
-	//
-	// U n i t y
-	//
-
-	// • • • • • • • • • • • • • • • • • • • • //
-
-	//
 	// U s e r
 	//
 
@@ -40,6 +25,6 @@ public class ChartboostTester : MonoBehaviour
     {
         UIDebugLog.Label label = debug["Chartboost"];
 
-        ChartbootAdNetwork.PlayAd(() => label.Update("Ad played"), () => label.Update("Ad is not ready"));
+        ChartboostAdNetwork.PlayRewardedAd(() => label.Update("Ad played"), () => label.Update("Ad is not ready"));
     }
 }
