@@ -34,8 +34,12 @@ public class mNectarTester : MonoBehaviour
 
     void Start()
     {
+        // Initialize
         MNectar.initAdUnit(rewardedAdUnitID);
-        MNectar.initAdUnit(interstitialAdUnitID);
+        MNectar.initInterstitialAdUnit(interstitialAdUnitID);
+        // Request
+        MNectar.requestRewardable(rewardedAdUnitID);
+        MNectar.requestInterstitial(interstitialAdUnitID);
     }
 
 	// • • • • • • • • • • • • • • • • • • • • //
@@ -46,11 +50,10 @@ public class mNectarTester : MonoBehaviour
 
     public void PlayRewardableAd()
     {
-        MNectar.requestRewardable(rewardedAdUnitID);
-
         if(MNectar.isRewardableReady(rewardedAdUnitID))
         {
             MNectar.showRewardable(rewardedAdUnitID);
+            MNectar.requestRewardable(rewardedAdUnitID);
 
             debug.Display("Rewarded ad played");
 
@@ -61,11 +64,10 @@ public class mNectarTester : MonoBehaviour
     }
     public void PlayInterstitialAd()
     {
-        MNectar.requestInterstitial(interstitialAdUnitID);
-
         if (MNectar.isInterstitialReady(interstitialAdUnitID))
         {
             MNectar.showInterstitial(interstitialAdUnitID);
+            MNectar.requestInterstitial(interstitialAdUnitID);
 
             debug.Display("Interstitial ad played");
 

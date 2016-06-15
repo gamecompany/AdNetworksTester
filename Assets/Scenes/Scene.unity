@@ -475,8 +475,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: {fileID: 706463780}
-  rewardedAdUnitID: 7dEm441fnFeD2049ME3exLdfZfAe2s
-  interstitialAdUnitID: 7dEm441fnFeD2049ME3exLdfZfUnpJ
+  rewardedAdUnitID: 7dEm441fnFeD2110ME3exLdfZfqBOm
+  interstitialAdUnitID: 7dEm441fnFeD2111ME3exLdfZfcabR
 --- !u!4 &984794229
 Transform:
   m_ObjectHideFlags: 0
