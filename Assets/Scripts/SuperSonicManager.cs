@@ -25,8 +25,8 @@ public class SuperSonicManager : MonoBehaviour
     {
         if (Supersonic.Agent.isRewardedVideoAvailable())
         {
-            Supersonic.Agent.showRewardedVideo();
-            //Supersonic.Agent.showRewardedVideo("placementName");
+            //Supersonic.Agent.showRewardedVideo();
+            Supersonic.Agent.showRewardedVideo("rewardedVideoZone");
         }
         else
         {

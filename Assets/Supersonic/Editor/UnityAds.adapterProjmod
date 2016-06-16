@@ -1,0 +1,19 @@
+{
+  "files": [
+    "Plugins/ios/SUUnityAdsAdapter/UnityAds/UnityAds.bundle",
+	 "Plugins/ios/SUUnityAdsAdapter/SUUnityAdsAdapter.framework",
+	 "Plugins/ios/SUUnityAdsAdapter/UnityAds/UnityAds.framework"
+  ],
+  "librarysearchpaths": [
+  	"Plugins/ios/"
+  ],
+  "frameworksearchpaths": [
+	"Plugins/ios/",
+	"Plugins/ios/SUUnityAdsAdapter",
+	"Plugins/ios/SUUnityAdsAdapter/UnityAds"
+  ],
+  "frameworks": [
+     "StoreKit.framework:weak"
+  ]
+}
+
