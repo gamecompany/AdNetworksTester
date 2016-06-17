@@ -1,0 +1,30 @@
+{
+  "files": [
+	 "Plugins/ios/SUAdColonyAdapter/SUAdColonyAdapter.framework",
+	 "Plugins/ios/SUAdColonyAdapter/AdColony/AdColony.framework"
+  ],
+"libs": [
+   "libz.1.2.5.dylib"
+  ]
+"librarysearchpaths": [],
+
+"frameworks": [    	
+	"Social.framework",
+	"AdSupport.framework", 
+	"Webkit.framework", 
+	"EventKit.framework",
+	"EventKitUI.framework",
+	"MediaPlayer.framework",
+	"MessageUI.framework",
+	"AudioToolbox.framework"
+  ],
+  
+"frameworksearchpaths": [
+    "Plugins/iOS/",
+	"Plugins/ios/SUAdColonyAdapter",
+	"Plugins/ios/SUAdColonyAdapter/AdColony"
+  ],
+  
+"linkers": ["-ObjC","-fobjc-arc"]
+
+}
