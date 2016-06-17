@@ -1,0 +1,26 @@
+{
+  "files": [
+	"Plugins/ios/SUApplovinAdapter/SUApplovinAdapter.framework"
+  ],
+"libs": [
+	"Plugins/iOS/SUApplovinAdapter/Applovin/libAppLovinSdk.a"
+  ],
+"librarysearchpaths": [
+	"Plugins/iOS/SUApplovinAdapter/Applovin/"
+],
+"frameworks": [    
+	"AdSupport.framework", 
+	"MediaPlayer.framework", 
+	"UIKit.framework"
+  ],
+  
+"headerpaths": [
+    "Plugins/iOS/SUApplovinAdapter/Applovin/headers"
+  ],
+  "frameworksearchpaths": [
+    "Plugins/iOS/",
+  	"Plugins/ios/SUApplovinAdapter"
+    ],
+
+"linkers": ["-ObjC"] 
+}
