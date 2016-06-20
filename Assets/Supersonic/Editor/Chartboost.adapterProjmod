@@ -1,0 +1,21 @@
+{
+"files": [
+	"Plugins/ios/SUChartboostAdapter/SUChartboostAdapter.framework",
+	"Plugins/ios/SUChartboostAdapter/Chartboost/Chartboost.framework"
+  ],
+"librarysearchpaths": [],
+
+"frameworks": [    	
+	"StoreKit.framework",
+	"Foundation.framework",
+	"CoreGraphics.framework",
+	"UIKit.framework"
+  ],
+  
+"frameworksearchpaths": [
+    "Plugins/iOS/",
+	"Plugins/ios/SUChartboostAdapter",
+	"Plugins/ios/SUChartboostAdapter/Chartboost"
+  ]
+}
+

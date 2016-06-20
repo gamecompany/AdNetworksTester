@@ -38,6 +38,6 @@ public class UIDebugLog : MonoBehaviour
     {
         if (!console) return;
 
-        console.text = text;
+        console.text += text + "\n";
     }
 }
