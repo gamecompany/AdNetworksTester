@@ -1,0 +1,33 @@
+{
+	"Cascade1":{
+		"Stack Order" : "Vungle"
+	},
+	"Cascade2":{
+		"Stack Order" : "Heyzap"
+	},
+	"Cascade3":{
+		"Stack Order" : "Chartboost"
+	},
+
+    "StackPos1": {
+        "Stack Order": "AdColony"
+    },
+    "StackPos2": {
+        "Stack Order": "AdColony"
+    },
+    "StackPos3": {
+        "Stack Order": "AdColony"
+    },
+    "StackPos4": {
+        "Stack Order": "Unity"
+    },
+    "StackPos5": {
+        "Stack Order": "Unity"
+    },
+    "StackPos6": {
+        "Stack Order": "AdColony"
+    },
+    "StackPos7": {
+        "Stack Order": "Unity"
+    }
+}

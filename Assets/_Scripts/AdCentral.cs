@@ -100,13 +100,15 @@ public static class AdCentral
 
 	const int maxNumberOfSlots = 20;
 
-	private static int StackIndex {
-		get {
-			return m_StackIndex;
-		}
-		set {
+	private static int StackIndex
+    {
+		get{ return m_StackIndex; }
+
+        set
+        {
 			m_StackIndex = value;
-			if (m_StackIndex >= m_AdSlotName.Length || m_StackIndex < 0) 
+
+            if (m_StackIndex >= m_AdSlotName.Length || m_StackIndex < 0) 
 			{
 				m_StackIndex = 0;
 			}
@@ -155,8 +157,8 @@ public static class AdCentral
 		string _jsonText;
 
 		#if UNITY_EDITOR	
-			_jsonText = Resources.Load<TextAsset>(AdCentral.AdSettingsFileName).text;
-#else
+			_jsonText = Resources.Load<TextAsset>(AdSettingsFileName).text;
+        #else
 			// If we've download a newer version of the data file, read it
 			if(File.Exists(AdCentral.PersistentAdSettingsPath))
 			{
@@ -176,7 +178,6 @@ public static class AdCentral
 		m_AdSlotFunction = new AdFunction[slots];
 
 		// test with bad JSON file!
-
 		foreach(var keys in _jsonDictionary.Keys)
 		{
 			var _jsonDict2 = MiniJSON2.Json.Deserialize(MiniJSON2.Json.Serialize(_jsonDictionary[keys])) as Dictionary<string,object>;
@@ -190,8 +191,6 @@ public static class AdCentral
 		}
 
 		StackIndex = StackIndex;	// make sure index is within bounds (as the array size may've changed)
-
-
 	}
 
 	// Takes a source, loads the JSON text, and has it parsed
@@ -201,25 +200,31 @@ public static class AdCentral
 		{
 			// If we have no other data, we fall back to using a stack of Unity Ads
 			case JsonSource.Fallback:
-				jsonText = "{\"StackPos1\":{\"Stack Order\":\"Unity\"},\"StackPos2\":{\"Stack Order\":\"Unity\"},\"StackPos3\":{\"Stack Order\":\"Unity\"},\"StackPos4\":{\"Stack Order\":\"Unity\"},\"StackPos5\":{\"Stack Order\":\"Unity\"}}";
-				break;
+                {
+                    jsonText = AdCentralUtility.Fallback;
+                }
+                break;
 
 			// If we have nothing newer, we use the asset built into the game when it was compiled
 			case JsonSource.Asset:
-				var resource = Resources.Load<TextAsset>(AdCentral.AdSettingsFileName);
-				if (resource != null)
-				{
-					jsonText = resource.text;
-				}
-				break;
+                {
+				    var resource = Resources.Load<TextAsset>(AdSettingsFileName);
+				    if (resource != null)
+				    {
+					    jsonText = resource.text;
+				    }
+                }
+                break;
 
 			// If possible, we load the data from a recently-downloaded file
 			case JsonSource.File:
-                if (File.Exists(AdCentral.PersistentAdSettingsPath))
-				{
-					jsonText = File.ReadAllText(AdCentral.PersistentAdSettingsPath);
-				}
-				break;
+                {
+                    if (File.Exists(PersistentAdSettingsPath))
+				    {
+					    jsonText = File.ReadAllText(PersistentAdSettingsPath);
+				    }
+                }
+                break;
 
             // Json text is already set
             case JsonSource.Downloaded:
@@ -227,11 +232,9 @@ public static class AdCentral
         }
 
         //Debug.LogFormat("Loaded Json from: {0} -> text: {1}", source, jsonText);
-
         bool result = SetJsonAdSlots(source, jsonText);
-
+        
         //Debug.LogFormat("<color=red>Loaded Json from: {0} -> {1}, text: {2}</color>", source, result, jsonText);
-
         return result;
 	}
 
@@ -260,13 +263,24 @@ public static class AdCentral
 		return details.validResult;
 	}
 
+    private static int current_CascadeItem = 0;
+    private static int current_TenSlotItem = 0;
+    private static int cascadeItems = 0;
+    private static int tenSlotItems = 0;
+
+    private static string objectKey = "";
+    private static string propertyKey = "";
+    private static AdSlotDetails details;
+    private static List<string> slotName = new List<string>();
+    private static List<AdFunction> slotFunction = new List<AdFunction>();
+    private static Dictionary<string, object> jsonDictionary = new Dictionary<string, object>();
+    private static Dictionary<string, object> objectDictionay = new Dictionary<string, object>();
+
 	// Takes data in JSON format and parses it. Returns true if it had reasonable data.
 	private static AdSlotDetails ParseJsonAdSlots(string jsonText)
 	{
-		int maxSlotLength = maxNumberOfSlots;
-
         // A result with the details
-		AdSlotDetails details = new AdSlotDetails();
+		details = new AdSlotDetails();
         // We have not validate the result
 		details.validResult = false;
 
@@ -275,8 +289,8 @@ public static class AdCentral
             return details;
 		}
 
-        // Dictionary from json text
-        Dictionary<string, object> jsonDictionary;
+        // Clear json dictionay
+        if (jsonDictionary.Count > 0) jsonDictionary.Clear();
 
         try
         {   // Try to deserialize json text
@@ -294,36 +308,61 @@ public static class AdCentral
             return details;
 		}
 
-        // The dictionary inside our deserialize json
-        Dictionary<string, object> stackPosDic;
-        // Initialize the lists to store details info
-        List<string> slotName = new List<string>();
-        List<AdFunction> slotFunc = new List<AdFunction>();
+        // Clear the item count (length) of each system
+        cascadeItems = tenSlotItems = 0;
+        // The dictionary inside our deserialize json (Clear it)
+        if(objectDictionay.Count > 0) objectDictionay.Clear();
+        // Initialize the lists to store details info (Clear them)
+        if (slotName.Count > 0) slotName.Clear();
+        if (slotFunction.Count > 0) slotFunction.Clear();
         // the current stack pos and stack order name
-        string stackPosKey = "";
-        string stackOrderKey = "";
+        objectKey = "";
+        propertyKey = "";
 
-        for(int i = 0; i < maxSlotLength; i++)
+        //
+        // C a s c a d e
+        //
+        GetDetails_ForCascade();
+        //
+        // 10 - s l o t  m a n a g e r
+        //
+        GetDaitails_ForTenSlot();
+
+        // Set the current index for each system
+        current_CascadeItem = 0;
+        current_TenSlotItem = cascadeItems;
+
+        return details;
+	}
+
+    private static void GetDetails(string objectName)
+    {
+        for (int i = 0; i < maxNumberOfSlots; i++)
         {
-            stackPosKey = string.Format("StackPos{0}", i + 1);
+            objectKey = string.Format("{0}{1}", objectName, i + 1);
 
             try
             {
-                stackPosDic = jsonDictionary[stackPosKey] as Dictionary<string, object>;
-                stackOrderKey = stackPosDic["Stack Order"] as string;
+                objectDictionay = jsonDictionary[objectKey] as Dictionary<string, object>;
+                propertyKey = objectDictionay["Stack Order"] as string;
 
-                if(!string.IsNullOrEmpty(stackOrderKey))
+                if (!string.IsNullOrEmpty(propertyKey))
                 {
                     // Name of the ad network
-                    slotName.Add(stackOrderKey);
+                    slotName.Add(propertyKey);
                     // Get ad function from the ad network name
-                    slotFunc.Add(AdSourceFromString(stackOrderKey));
+                    slotFunction.Add(AdSourceFromString(propertyKey));
+                    // Add the items for each system
+                    if (objectName == "Cascade")
+                        cascadeItems++;
+                    else
+                        tenSlotItems++;
                 }
             }
             catch { }
         }
 
-        if(0 == slotName.Count || 0 == slotFunc.Count)
+        if (0 == slotName.Count || 0 == slotFunction.Count)
         {
             Debug.LogWarning("We couldn't find any ad-network specified in the advertisment Json source");
         }
@@ -333,29 +372,28 @@ public static class AdCentral
         {
             // Try to parse the lists
             details.slotName = slotName.ToArray();
-            details.slotFunction = slotFunc.ToArray();
+            details.slotFunction = slotFunction.ToArray();
             // Set the valid result from the length of the arrays
-            details.validResult = 
-            	details.slotName.Length == details.slotFunction.Length &&
-            	details.slotName.Length > 0;
+            details.validResult =
+                details.slotName.Length == details.slotFunction.Length &&
+                details.slotName.Length > 0;
         }
         catch { }
-
-		return details;
-	}
-
-    public static bool ValidIndex(int length, int index)
-    {
-        return index >= 0 && index < length;
     }
 
-    public static bool ValidName(string slotName, int i)
+    private static void GetDetails_ForCascade()
     {
-        return slotName == "StackPos" + i;
+        Debug.LogFormat("GetDetails_ForCascade");
+        GetDetails("Cascade");
     }
 
-	// If we are debugging the ad slots, this updates the user interface
-	public static void UpdateAdSlotsUI()
+    private static void GetDaitails_ForTenSlot()
+    {
+        GetDetails("StackPos");
+    }
+
+    // If we are debugging the ad slots, this updates the user interface
+    public static void UpdateAdSlotsUI()
 	{
 #if DEBUG_ADVERTISING
 			int slots = m_AdSlotName.Length;
@@ -403,12 +441,27 @@ public static class AdCentral
 		#endif
 	}
 
-	public static void ShowAd(string AdName)
+	public static void ShowAd(string adPlacement)
 	{
 		bool incentivized = false;
-		int index = IndexOfAdPlacement(AdName);
+		int index = IndexOfAdPlacement(adPlacement);
 		incentivized = AdIsIncentivized[index];
-		PlayNextAvailableAdInList(m_AdSlotFunction, AdName, incentivized);
+        
+        if(current_CascadeItem < cascadeItems)
+        {
+            // Reset the index of the 10 slot system if we haven't or we already went throught all of it
+            current_TenSlotItem = cascadeItems;
+            // Cascade
+            if(PlayCascadeAvaiableAdList(m_AdSlotFunction, adPlacement, incentivized))
+            {
+                // E x i t
+                return;
+            }
+        }
+        // Ten slot system
+		PlayNextAvailableAdInList(m_AdSlotFunction, adPlacement, incentivized);
+        // Reset the index of the cascade system if we went through all the ten slot system
+        if (current_TenSlotItem >= (tenSlotItems + cascadeItems)) current_CascadeItem = 0;
 	}
 
 
@@ -452,14 +505,54 @@ public static class AdCentral
         }
 	}
 
+    public static void IncrementCurrentCascadeIndex()
+    {
+        current_CascadeItem = Mathf.Min(cascadeItems, current_CascadeItem + 1);
+    }
+
+    private static bool PlayCascadeAvaiableAdList(AdFunction[] adFunctionList, string placementName, bool incentivized)
+    {
+        bool played = false;
+
+        for(int i = current_CascadeItem; current_CascadeItem < cascadeItems; ++i)
+        {
+            played = adFunctionList[current_CascadeItem](placementName, incentivized);
+
+#if DEBUG_ADVERTISING
+
+            if (highlightedLine != null)
+            {
+                highlightedLine.Unhighlight();
+            }
+
+            debugLine[current_CascadeItem].SetCurrentTime();
+            debugLine[current_CascadeItem].SetPlacement(string.Format("{0} {1}", incentivized ? "\u2605 " : "", placementName));
+            debugLine[current_CascadeItem].SetResult(played ? "Cascade ad played" : "Cascade ad not avaible");
+            highlightedLine = debugLine[current_CascadeItem].HighlightLine();
+#endif
+
+            if (played)
+            {
+                return true;
+            }
+            else
+            {
+                current_CascadeItem++;
+            }
+
+            Debug.LogFormat("Play cascade-> Index: {0}", current_CascadeItem);
+        }
+
+        return false;
+    }
+
 	// Goes through the list of ad functions, starting where we left off,
 	// and keeps on trying until one plays, or none of them at all would play
 	private static void PlayNextAvailableAdInList(AdFunction[] adFunctionList, string placementName, bool incentivized)
 	{
-		for (int maxTries = adFunctionList.Length; maxTries >= 0; --maxTries)
+		for (int i = current_TenSlotItem; i < (tenSlotItems + cascadeItems); ++i)
 		{
-			int index = StackIndex++;
-			bool played = adFunctionList[index](placementName, incentivized);
+            bool played = adFunctionList[i](placementName, incentivized);
 
 #if DEBUG_ADVERTISING
 
@@ -468,15 +561,19 @@ public static class AdCentral
 					highlightedLine.Unhighlight();
 				}
 
-				debugLine[index].SetCurrentTime();
-				debugLine[index].SetPlacement(string.Format("{0} {1}", incentivized ? "\u2605 " : "", placementName));
-				debugLine[index].SetResult(played ? "Played" : "Failed");
-				highlightedLine = debugLine[index].HighlightLine();
+				debugLine[i].SetCurrentTime();
+				debugLine[i].SetPlacement(string.Format("{0} {1}", incentivized ? "\u2605 " : "", placementName));
+				debugLine[i].SetResult(played ? "Played" : "Not avaible");
+				highlightedLine = debugLine[i].HighlightLine();
 #endif
+            
+            Debug.LogFormat("Play ten slot-> Index: {0}", current_TenSlotItem);
 
-			if (played) return;
-		}
-	}
+            current_TenSlotItem++;
+
+            if (played) return;
+        }
+    }
 
 	// Takes the placement, and gives you a number (0 - 5) representing the ad
 	public static int IndexOfAdPlacement(string placementName)
@@ -523,13 +620,24 @@ public static class AdCentral
 				settingsDownloadedSuccessfully ? " was ok" : "failed");
 		}
 
-		message += "Using Unity Ads ";
+#if USE_UNITYADS
+        message += "Using Unity Ads ";
+#endif
+
+#if USE_UNITYADS
+        message += "+ Heyzap";
+#endif
 
 #if USE_CHARTBOOST
-		message += "+ Chartboost ";
+        message += "+ Chartboost ";
 #endif
+
 #if USE_VUNGLE
 		message += "+ Vungle ";
+#endif
+        
+#if USE_UNITYADS
+        message += "+ Adcolony";
 #endif
         message += string.Format("\nFinal jsonSource = {0}", m_JsonSource);
 
@@ -537,4 +645,50 @@ public static class AdCentral
 	}
 #endif
 
+    public static string RandomAdPlacement()
+    {
+        int randomID = UnityEngine.Random.Range(0, 2);
+
+        string id = "";
+
+        switch (randomID)
+        {
+            case 0: id = AdPlacementID.Ad3MoreGame.ToString(); break;
+            case 1: id = AdPlacementID.Ad4Trailers.ToString(); break;
+        }
+
+        return id;
+    }
+
+    public static string RandomRewardedAdPlacement()
+    {
+        int randomID = UnityEngine.Random.Range(0, 2);
+
+        string id = "";
+
+        switch (randomID)
+        {
+            case 0: id = AdPlacementID.Ad1Launch.ToString(); break;
+            case 1: id = AdPlacementID.Ad5Death.ToString(); break;
+        }
+
+        return id;
+    }
+
+}
+
+public struct AdCentralUtility
+{
+    public static string Fallback =
+    @"{
+        ""Cascade1"":{""Stack Order"":""Unity""},
+        ""Cascade2"":{""Stack Order"":""Unity""},
+        ""Cascade3"":{""Stack Order"":""Unity""},
+
+        ""StackPos1"":{""Stack Order"":""Unity""},
+        ""StackPos2"":{""Stack Order"":""Unity""},
+        ""StackPos3"":{""Stack Order"":""Unity""},
+        ""StackPos4"":{""Stack Order"":""Unity""},
+        ""StackPos5"":{""Stack Order"":""Unity""}
+    }";
 }
