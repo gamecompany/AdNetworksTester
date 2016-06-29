@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2faf4b41456a1a8459624adaa21c0edf, type: 3}
+  m_Name: UnityAdsSettings
+  m_EditorClassIdentifier: 
+  AppID: 32157
+  Ad1Launch: 321571429116005
+  Ad2FreeGame: 321571429116005
+  Ad3MoreGame: 321571429116013
+  Ad4Trailers: 321571429116021
+  Ad5Death: 321571429116034
+  ShowTestAds: 0

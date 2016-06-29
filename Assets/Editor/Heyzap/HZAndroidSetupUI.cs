@@ -28,7 +28,7 @@ namespace Heyzap {
         // minimum version of the Google Play Services library project
         public const long MinGmsCoreVersionCode = 4030530;
         
-        [MenuItem("Heyzap/Android Setup...", false, 0)]
+        [MenuItem("Ad Networks/Heyzap/Android Setup...", false, 20)]
         public static void MenuItemHZAndroidSetup() {
             EditorWindow.GetWindow(typeof(HZAndroidSetupUI));
         }

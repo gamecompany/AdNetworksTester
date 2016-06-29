@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47e526d79cb90754985834d888b2d20d, type: 3}
+  m_Name: AdcolonySettings
+  m_EditorClassIdentifier: 
+  appVersion: Version:1.0,store:google
+  AppID: app7712a75f4adf41ff87
+  zoneID:
+    Ad1Launch: vzd82617c7810840968a
+    Ad2FreeGame: vzc97e511095a5444b80
+    Ad3MoreGame: vzb687e49acf054ff795
+    Ad4Trailers: vz0f54c33bc0f74983a1
+    Ad5Death: vz52b5c112d4d54a22b5
+    Ad6Powerup: vz52b5c112d4d54a22b5

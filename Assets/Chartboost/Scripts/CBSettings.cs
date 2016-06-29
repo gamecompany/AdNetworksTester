@@ -76,13 +76,13 @@ namespace ChartboostSDK {
 	    }
 
 	#if UNITY_EDITOR
-	    [MenuItem("Chartboost/Edit Settings")]
+	    [MenuItem("Ad Networks/Chartboost/Edit Settings", false, 20)]
 	    public static void Edit()
 	    {
 	        Selection.activeObject = Instance;
 	    }
 
-	    [MenuItem("Chartboost/SDK Documentation")]
+	    [MenuItem("Ad Networks/Chartboost/SDK Documentation", false, 21)]
 	    public static void OpenDocumentation()
 	    {
 	        string url = "https://help.chartboost.com/documentation/unity";

@@ -25,16 +25,6 @@ public static class AdCentral
         public bool validResult;
     };
 
-    public static bool m_StackCreated = false;
-    private static int m_StackIndex = 0;
-
-    public static bool m_SaveLife = false;
-    public static string adName;
-
-    public const string AdSettingsFileName = "ten-slot-settings";
-
-    public static string AdSettingsUrl = string.Format("http://topgamestudio.com/DynamicVariables/{0}/ten-slot-settings.json", bundleId);
-
     public enum AdPlacementID
     {
         Ad1Launch,
@@ -44,6 +34,16 @@ public static class AdCentral
         Ad5Death,
         Ad6PowerUp
     }
+
+    public static bool m_StackCreated = false;
+    private static int m_StackIndex = 0;
+
+    public static bool m_SaveLife = false;
+    public static string adName;
+
+    public const string AdSettingsFileName = "ten-slot-settings";
+
+    public static string AdSettingsUrl = string.Format("http://topgamestudio.com/DynamicVariables/{0}/ten-slot-settings.json", bundleId);
 
     public static string bundleId
     {
@@ -421,29 +421,35 @@ public static class AdCentral
 		#if USE_CHARTBOOST
 			case "CHARTBOOST":
 				return new AdFunction(ChartboostAdNetwork.PlayAd);
-		#endif
+        #endif
 
-			case "UNITY":
+        #if USE_UNITYADS
+            case "UNITY":
 				return new AdFunction(UnityAdNetwork.PlayAd);
+        #endif
 
-		#if USE_VUNGLE
+        #if USE_VUNGLE
 			case "VUNGLE":
 				return new AdFunction(VungleAdNetwork.PlayAd);
-		#endif
+        #endif
 
-		#if USE_HEYZAP
+        #if USE_HEYZAP
 			case "HEYZAP":
 				return new AdFunction(HeyzapAdNetwork.PlayAd);
-		#endif
+        #endif
 
-		#if USE_ADCOLONY
+        #if USE_ADCOLONY
 			case "ADCOLONY":
 			    return new AdFunction(AdcolonyAdNetwork.PlayAd);
-		#endif
+        #endif
 
-			default:
+            default:
+        #if USE_UNITYADS
 				return new AdFunction(UnityAdNetwork.PlayAd);
-		}
+        #else
+                return null;
+        #endif
+        }
 	}
 
 	// Goes through the list of ad functions, starting where we left off,
@@ -455,7 +461,7 @@ public static class AdCentral
 			int index = StackIndex++;
 			bool played = adFunctionList[index](placementName, incentivized);
 
-			#if DEBUG_ADVERTISING
+#if DEBUG_ADVERTISING
 
 				if (highlightedLine != null)
 				{
@@ -466,7 +472,7 @@ public static class AdCentral
 				debugLine[index].SetPlacement(string.Format("{0} {1}", incentivized ? "\u2605 " : "", placementName));
 				debugLine[index].SetResult(played ? "Played" : "Failed");
 				highlightedLine = debugLine[index].HighlightLine();
-			#endif
+#endif
 
 			if (played) return;
 		}
@@ -519,10 +525,10 @@ public static class AdCentral
 
 		message += "Using Unity Ads ";
 
-		#if USE_CHARTBOOST
+#if USE_CHARTBOOST
 		message += "+ Chartboost ";
-		#endif
-		#if USE_VUNGLE
+#endif
+#if USE_VUNGLE
 		message += "+ Vungle ";
 #endif
         message += string.Format("\nFinal jsonSource = {0}", m_JsonSource);
