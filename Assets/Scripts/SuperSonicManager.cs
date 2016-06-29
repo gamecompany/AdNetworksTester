@@ -158,7 +158,6 @@ public class SuperSonicManager : MonoBehaviour
     void VideoAvailabilityChangedEvent(bool available)
     {
         //Change the in-app 'Traffic Driver' state according to availability.
-        bool rewardedVideoAvailability = available;
         MyLog.Display("VideoAvailabilityChangedEvent to " + available);
     }
 
@@ -189,6 +188,7 @@ public class SuperSonicManager : MonoBehaviour
     void InterstitialInitSuccessEvent()
     {
         MyLog.Display("InterstitialInitSuccessEvent");
+        Supersonic.Agent.loadInterstitial();
     }
     /* 
      * Invoked when the initialization process has failed.
@@ -248,7 +248,6 @@ public class SuperSonicManager : MonoBehaviour
     void InterstitialReadyEvent()
     {
         MyLog.Display("InterstitialReadyEvent");
-        Supersonic.Agent.loadInterstitial();
     }
 
     void InterstitialInitFailEvent(SupersonicError error)

@@ -1,0 +1,27 @@
+{
+  "files": [
+	"Plugins/ios/SUHyprMXAdapter/SUHyprMXAdapter.framework",
+	"Plugins/ios/SUHyprMXAdapter/HyprMX/HyprMX.framework"
+  ],
+"librarysearchpaths": [],
+"frameworks": [    	
+ "Accelerate.framework",
+ "AdSupport.framework", 
+ "AVFoundation.framework", 
+ "CoreGraphics.framework", 
+ "CoreLocation.framework", 
+ "CoreMedia.framework", 
+ "Foundation.framework", 
+ "MessageUI.framework", 
+ "MobileCoreServices.framework", 
+ "QuartzCore.framework", 
+ "SystemConfiguration.framework", 
+ "UIKit.framework"
+  ],
+  
+"frameworksearchpaths": [
+    "Plugins/iOS/",
+	"Plugins/ios/SUHyprMXAdapter",
+	"Plugins/ios/SUHyprMXAdapter/HyprMX"
+  ]
+}
