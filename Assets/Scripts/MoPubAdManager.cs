@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 public class MoPubAdManager : MonoBehaviour
 {
@@ -64,6 +65,30 @@ public class MoPubAdManager : MonoBehaviour
         MoPubManager.onRewardedVideoFailedToPlayEvent -= onRewardedVideoFailedToPlayEvent;
         MoPubManager.onRewardedVideoClosedEvent -= onRewardedVideoClosedEvent;
     }
+
+    /*List<MoPubMediationSetting> getMediationSettings()
+    {
+        var adColonySettings = new MoPubMediationSetting("AdColony");
+        adColonySettings.Add("withConfirmationDialog", false);
+        adColonySettings.Add("withResultsDialog", true);
+
+        var chartboostSettings = new MoPubMediationSetting("Chartboost");
+        chartboostSettings.Add("customId", "the-user-id");
+
+        var vungleSettings = new MoPubMediationSetting("Vungle");
+        vungleSettings.Add("userId", "the-user-id");
+        vungleSettings.Add("cancelDialogBody", "Cancel Body");
+        vungleSettings.Add("cancelDialogCloseButton", "Shut it Down");
+        vungleSettings.Add("cancelDialogKeepWatchingButton", "Watch On");
+        vungleSettings.Add("cancelDialogTitle", "Cancel Title");
+
+        var mediationSettings = new List<MoPubMediationSetting>();
+        mediationSettings.Add(adColonySettings);
+        mediationSettings.Add(chartboostSettings);
+        mediationSettings.Add(vungleSettings);
+
+        return mediationSettings;
+    }*/
 
     void onAdFailedEvent()
     {
