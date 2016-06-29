@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a59325f827488192f52f99fa8db37, type: 3}
+  m_Name: AdDebuggingSettings
+  m_EditorClassIdentifier: 
+  diagnosticCanvasPrefab: {fileID: 133098, guid: c18edc53f4efc4976aebf4c26dbdb9d7,
+    type: 2}
+  diagnosticLinePrefab: {fileID: 161924, guid: 1feecc5b2e1964488bd24d2e41a2eae8, type: 2}
+  diagnosticTextOutputLinePrefab: {fileID: 128758, guid: fbe83a60569ff4d868c8469cdeb0a19f,
+    type: 2}
