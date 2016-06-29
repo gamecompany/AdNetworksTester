@@ -43,7 +43,7 @@ public class HeyzapTester : MonoBehaviour
         // Random ad placement id
         string id = AdTester.RandomAdPlacement();
         // Update the label
-        label.Update(HeyzapAdNetwork.PlayAd(id, false) ? "(" + id + ") Rewarded ad played" : "(" + id + ")Rewarded ad is not ready");
+        label.Update(HeyzapAdNetwork.PlayAd(id, false) ? "(" + id + ") ad played" : "(" + id + ") ad is not ready");
 #endif
     }
 
@@ -59,7 +59,7 @@ public class HeyzapTester : MonoBehaviour
         // Random ad placement id
         string id = AdTester.RandomRewardedAdPlacement();
         // Update the label
-        label.Update(HeyzapAdNetwork.PlayAd(id, true) ? "(" + id + ") Rewarded ad played" : "(" + id + ")Rewarded ad is not ready");
+        label.Update(HeyzapAdNetwork.PlayAd(id, true) ? "(" + id + ") Rewarded ad played" : "(" + id + ") Rewarded ad is not ready");
 #endif
     }
 }

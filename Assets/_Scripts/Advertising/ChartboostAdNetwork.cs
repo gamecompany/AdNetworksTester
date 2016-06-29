@@ -19,15 +19,6 @@ public static class ChartboostAdNetwork
         Chartboost.Create();
 		Chartboost.cacheRewardedVideo(CBLocation.Default);
         Chartboost.cacheInterstitial(CBLocation.Default);
-
-        // E x i t
-        if (!AdTester.Exists) return;
-        // Assign debug log object
-        log = AdTester.I["Chartboost"];
-        // E x i t
-        if (null == log) return;
-        // Update label
-        log.Update("Is Initialize - " + Chartboost.isInitialized());
     }
 
     //

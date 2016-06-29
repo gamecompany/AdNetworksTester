@@ -8,11 +8,9 @@ using Heyzap;
 using UnityEditor;
 #endif
 
-public class HeyzapAdNetwork : MonoBehaviour 
+public static class HeyzapAdNetwork 
 {
 #if USE_HEYZAP
-    
-    static AdTester.Label log;
     static string publisherID;
 
     static string PublisherID
@@ -48,14 +46,6 @@ public class HeyzapAdNetwork : MonoBehaviour
     static void Initialize()
     {
         HeyzapAds.Start(PublisherID, HeyzapAds.FLAG_NO_OPTIONS);
-        // E x i t
-        if (!AdTester.Exists) return;
-        // Assign debug log object
-        log = AdTester.I["Heyzap"];
-        // E x i t
-        if (null == log) return;
-        // Update label
-        log.Update("Is Initialize - "+ HeyzapAds.IsNetworkInitialized(PublisherID));
     }
 
     //

@@ -20,14 +20,14 @@ public class AdTester : MonoBehaviour
         {
             if (!label) return;
 
-            label.text = name + ": " + text;
+            label.text = text;
         }
 
         public void Clear()
         {
             if (!label) return;
 
-            label.text = name + ": ";
+            label.text = "";
         }
     }
 
@@ -60,8 +60,22 @@ public class AdTester : MonoBehaviour
     {
         get
         {
+            labelName = labelName.ToLower();
+            labelName = labelName.Replace(" ", "");
+            labelName = labelName.Replace("_", "");
+
+            string currentLabelName = "";
+
             foreach (Label l in label)
-                if (l.name.Equals(labelName)) return l;
+            {
+                currentLabelName = l.name.ToLower();
+                currentLabelName = currentLabelName.Replace(" ", "");
+                currentLabelName = currentLabelName.Replace("_", "");
+
+                Debug.LogFormat("label: {0}, current: {1}", labelName, currentLabelName);
+
+                if (currentLabelName == labelName) return l;
+            }
 
             return default(Label);
         }
