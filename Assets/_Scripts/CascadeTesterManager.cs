@@ -33,7 +33,7 @@ public class CascadeTesterManager : MonoBehaviour
 
     public void PlayAd()
     {
-        AdCentral.ShowAd(AdCentral.RandomAdPlacement());
+        AdCentral.ShowAd(AdCentral.RandomNormalAdPlacement());
     }
 
     public void PlayRewardedAd()
@@ -41,8 +41,8 @@ public class CascadeTesterManager : MonoBehaviour
         AdCentral.ShowAd(AdCentral.RandomRewardedAdPlacement());
     }
 
-    public void IncrementCascadeIndex()
+    public void PlayTenSlotManager()
     {
-        AdCentral.IncrementCurrentCascadeIndex();
+        AdCentral.ShowAdFromTenSlotSystem(AdCentral.RandomAdPlacement());
     }
 }

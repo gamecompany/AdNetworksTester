@@ -446,23 +446,34 @@ public static class AdCentral
 		bool incentivized = false;
 		int index = IndexOfAdPlacement(adPlacement);
 		incentivized = AdIsIncentivized[index];
-        
-        if(current_CascadeItem < cascadeItems)
+
+
+        // Reset the cascade item idex each time we play an ad
+        current_CascadeItem = 0;
+        // Cascade
+        if (PlayCascadeAvaiableAdList(m_AdSlotFunction, adPlacement, incentivized))
         {
-            // Reset the index of the 10 slot system if we haven't or we already went throught all of it
-            current_TenSlotItem = cascadeItems;
-            // Cascade
-            if(PlayCascadeAvaiableAdList(m_AdSlotFunction, adPlacement, incentivized))
-            {
-                // E x i t
-                return;
-            }
+            // E x i t: if we displayed one
+            return;
         }
+
         // Ten slot system
-		PlayNextAvailableAdInList(m_AdSlotFunction, adPlacement, incentivized);
+        PlayNextAvailableAdInList(m_AdSlotFunction, adPlacement, incentivized);
         // Reset the index of the cascade system if we went through all the ten slot system
-        if (current_TenSlotItem >= (tenSlotItems + cascadeItems)) current_CascadeItem = 0;
+        if (current_TenSlotItem >= (tenSlotItems + cascadeItems)) current_TenSlotItem = cascadeItems;
 	}
+
+    public static void ShowAdFromTenSlotSystem(string adPlacement)
+    {
+        bool incentivized = false;
+        int index = IndexOfAdPlacement(adPlacement);
+        incentivized = AdIsIncentivized[index];
+        
+        // Ten slot system
+        PlayNextAvailableAdInList(m_AdSlotFunction, adPlacement, incentivized);
+        // Reset the index of the cascade system if we went through all the ten slot system
+        if (current_TenSlotItem >= (tenSlotItems + cascadeItems)) current_TenSlotItem = cascadeItems;
+    }
 
 
 	// Takes a string and returns the closest available ad network for that string
@@ -514,9 +525,9 @@ public static class AdCentral
     {
         bool played = false;
 
-        for(int i = current_CascadeItem; current_CascadeItem < cascadeItems; ++i)
+        for(int i = 0; i < cascadeItems; ++i)
         {
-            played = adFunctionList[current_CascadeItem](placementName, incentivized);
+            played = adFunctionList[i](placementName, incentivized);
 
 #if DEBUG_ADVERTISING
 
@@ -525,22 +536,13 @@ public static class AdCentral
                 highlightedLine.Unhighlight();
             }
 
-            debugLine[current_CascadeItem].SetCurrentTime();
-            debugLine[current_CascadeItem].SetPlacement(string.Format("{0} {1}", incentivized ? "\u2605 " : "", placementName));
-            debugLine[current_CascadeItem].SetResult(played ? "Cascade ad played" : "Cascade ad not avaible");
-            highlightedLine = debugLine[current_CascadeItem].HighlightLine();
+            debugLine[i].SetCurrentTime();
+            debugLine[i].SetPlacement(string.Format("{0} {1}", incentivized ? "\u2605 " : "", placementName));
+            debugLine[i].SetResult(played ? "Cascade ad played" : "Cascade ad not avaible");
+            highlightedLine = debugLine[i].HighlightLine();
 #endif
 
-            if (played)
-            {
-                return true;
-            }
-            else
-            {
-                current_CascadeItem++;
-            }
-
-            Debug.LogFormat("Play cascade-> Index: {0}", current_CascadeItem);
+            if (played) return true;
         }
 
         return false;
@@ -566,9 +568,6 @@ public static class AdCentral
 				debugLine[i].SetResult(played ? "Played" : "Not avaible");
 				highlightedLine = debugLine[i].HighlightLine();
 #endif
-            
-            Debug.LogFormat("Play ten slot-> Index: {0}", current_TenSlotItem);
-
             current_TenSlotItem++;
 
             if (played) return;
@@ -646,6 +645,23 @@ public static class AdCentral
 #endif
 
     public static string RandomAdPlacement()
+    {
+        int randomID = UnityEngine.Random.Range(0, 5);
+
+        string id = "";
+
+        switch (randomID)
+        {
+            case 0: id = AdPlacementID.Ad3MoreGame.ToString(); break;
+            case 1: id = AdPlacementID.Ad4Trailers.ToString(); break;
+            case 2: id = AdPlacementID.Ad1Launch.ToString(); break;
+            case 3: id = AdPlacementID.Ad5Death.ToString(); break;
+        }
+
+        return id;
+    }
+
+    public static string RandomNormalAdPlacement()
     {
         int randomID = UnityEngine.Random.Range(0, 2);
 
