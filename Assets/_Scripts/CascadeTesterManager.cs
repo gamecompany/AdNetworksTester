@@ -3,15 +3,18 @@ using System.Collections;
 
 public class CascadeTesterManager : MonoBehaviour
 {
-	//
-	// CascadeTesterManager
-	// structs & classes
+    //
+    // CascadeTesterManager
+    // structs & classes
 
-	// • • • • • • • • • • • • • • • • • • • • //
+    // • • • • • • • • • • • • • • • • • • • • //
 
-	//
-	// V a r i a b l e s
-	//
+    //
+    // V a r i a b l e s
+    //
+
+    [SerializeField]
+    private GameObject[] leftColumn;
 
 	// • • • • • • • • • • • • • • • • • • • • //
 
@@ -41,8 +44,19 @@ public class CascadeTesterManager : MonoBehaviour
         AdCentral.ShowAd(AdCentral.RandomRewardedAdPlacement());
     }
 
-    public void PlayTenSlotManager()
+    public void PlayTenSlotAd()
     {
-        AdCentral.ShowAdFromTenSlotSystem(AdCentral.RandomAdPlacement());
+        AdCentral.ShowAdFromTenSlotSystem(AdCentral.RandomNormalAdPlacement());
+    }
+
+    public void PlayRewardedTenSlotAd()
+    {
+        AdCentral.ShowAdFromTenSlotSystem(AdCentral.RandomRewardedAdPlacement());
+    }
+
+    public void ActiveLeftColumn(bool value)
+    {
+        for (int i = 0; i < leftColumn.Length; i++)
+            leftColumn[i].SetActive(value);
     }
 }

@@ -391,6 +391,46 @@ public static class AdCentral
     {
         GetDetails("StackPos");
     }
+    
+    // Takes a string and returns the closest available ad network for that string
+    private static AdFunction AdSourceFromString(string desiredAdNetwork)
+    {
+        switch (desiredAdNetwork.ToUpper())
+        {
+
+#if USE_CHARTBOOST
+            case "CHARTBOOST":
+                return new AdFunction(ChartboostAdNetwork.PlayAd);
+#endif
+
+#if USE_UNITYADS
+            case "UNITY":
+                return new AdFunction(UnityAdNetwork.PlayAd);
+#endif
+
+#if USE_VUNGLE
+            case "VUNGLE":
+                return new AdFunction(VungleAdNetwork.PlayAd);
+#endif
+
+#if USE_HEYZAP
+            case "HEYZAP":
+                return new AdFunction(HeyzapAdNetwork.PlayAd);
+#endif
+
+#if USE_ADCOLONY
+            case "ADCOLONY":
+                return new AdFunction(AdcolonyAdNetwork.PlayAd);
+#endif
+
+            default:
+#if USE_UNITYADS
+                return new AdFunction(UnityAdNetwork.PlayAd);
+#else
+                return null;
+#endif
+        }
+    }
 
     // If we are debugging the ad slots, this updates the user interface
     public static void UpdateAdSlotsUI()
@@ -475,52 +515,6 @@ public static class AdCentral
         if (current_TenSlotItem >= (tenSlotItems + cascadeItems)) current_TenSlotItem = cascadeItems;
     }
 
-
-	// Takes a string and returns the closest available ad network for that string
-	private static AdFunction AdSourceFromString(string desiredAdNetwork)
-	{
-		switch (desiredAdNetwork.ToUpper())
-		{
-
-		#if USE_CHARTBOOST
-			case "CHARTBOOST":
-				return new AdFunction(ChartboostAdNetwork.PlayAd);
-        #endif
-
-        #if USE_UNITYADS
-            case "UNITY":
-				return new AdFunction(UnityAdNetwork.PlayAd);
-        #endif
-
-        #if USE_VUNGLE
-			case "VUNGLE":
-				return new AdFunction(VungleAdNetwork.PlayAd);
-        #endif
-
-        #if USE_HEYZAP
-			case "HEYZAP":
-				return new AdFunction(HeyzapAdNetwork.PlayAd);
-        #endif
-
-        #if USE_ADCOLONY
-			case "ADCOLONY":
-			    return new AdFunction(AdcolonyAdNetwork.PlayAd);
-        #endif
-
-            default:
-        #if USE_UNITYADS
-				return new AdFunction(UnityAdNetwork.PlayAd);
-        #else
-                return null;
-        #endif
-        }
-	}
-
-    public static void IncrementCurrentCascadeIndex()
-    {
-        current_CascadeItem = Mathf.Min(cascadeItems, current_CascadeItem + 1);
-    }
-
     private static bool PlayCascadeAvaiableAdList(AdFunction[] adFunctionList, string placementName, bool incentivized)
     {
         bool played = false;
@@ -552,9 +546,14 @@ public static class AdCentral
 	// and keeps on trying until one plays, or none of them at all would play
 	private static void PlayNextAvailableAdInList(AdFunction[] adFunctionList, string placementName, bool incentivized)
 	{
-		for (int i = current_TenSlotItem; i < (tenSlotItems + cascadeItems); ++i)
+        int startIndex = current_TenSlotItem;
+        int slotCount = tenSlotItems + cascadeItems; // Max tries
+
+		for (int i = startIndex; i < slotCount; ++i)
 		{
-            bool played = adFunctionList[i](placementName, incentivized);
+            int index = current_TenSlotItem;
+
+            bool played = adFunctionList[index](placementName, incentivized);
 
 #if DEBUG_ADVERTISING
 
@@ -563,15 +562,24 @@ public static class AdCentral
 					highlightedLine.Unhighlight();
 				}
 
-				debugLine[i].SetCurrentTime();
-				debugLine[i].SetPlacement(string.Format("{0} {1}", incentivized ? "\u2605 " : "", placementName));
-				debugLine[i].SetResult(played ? "Played" : "Not avaible");
-				highlightedLine = debugLine[i].HighlightLine();
+				debugLine[index].SetCurrentTime();
+				debugLine[index].SetPlacement(string.Format("{0} {1}", incentivized ? "\u2605 " : "", placementName));
+				debugLine[index].SetResult(played ? "Played" : "Not avaible");
+				highlightedLine = debugLine[index].HighlightLine();
 #endif
-            current_TenSlotItem++;
+            current_TenSlotItem = AddCurrent_TenSlotItem();
 
             if (played) return;
         }
+    }
+
+    private static int AddCurrent_TenSlotItem()
+    {
+        int slotCount = tenSlotItems + cascadeItems;
+
+        if (current_TenSlotItem >= slotCount || current_TenSlotItem < 0) return 0;
+
+        return current_TenSlotItem + 1;
     }
 
 	// Takes the placement, and gives you a number (0 - 5) representing the ad
