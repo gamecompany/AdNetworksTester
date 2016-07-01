@@ -499,8 +499,6 @@ public static class AdCentral
 
         // Ten slot system
         PlayNextAvailableAdInList(m_AdSlotFunction, adPlacement, incentivized);
-        // Reset the index of the cascade system if we went through all the ten slot system
-        if (current_TenSlotItem >= (tenSlotItems + cascadeItems)) current_TenSlotItem = cascadeItems;
 	}
 
     public static void ShowAdFromTenSlotSystem(string adPlacement)
@@ -511,8 +509,6 @@ public static class AdCentral
         
         // Ten slot system
         PlayNextAvailableAdInList(m_AdSlotFunction, adPlacement, incentivized);
-        // Reset the index of the cascade system if we went through all the ten slot system
-        if (current_TenSlotItem >= (tenSlotItems + cascadeItems)) current_TenSlotItem = cascadeItems;
     }
 
     private static bool PlayCascadeAvaiableAdList(AdFunction[] adFunctionList, string placementName, bool incentivized)
@@ -575,9 +571,9 @@ public static class AdCentral
 
     private static int AddCurrent_TenSlotItem()
     {
-        int slotCount = tenSlotItems + cascadeItems;
+        int slotCount = (tenSlotItems + cascadeItems) - 1;
 
-        if (current_TenSlotItem >= slotCount || current_TenSlotItem < 0) return 0;
+        if (current_TenSlotItem >= slotCount || current_TenSlotItem < cascadeItems) return cascadeItems;
 
         return current_TenSlotItem + 1;
     }
