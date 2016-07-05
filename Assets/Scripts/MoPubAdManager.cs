@@ -19,7 +19,7 @@ public class MoPubAdManager : MonoBehaviour
         {
             bInitialized = true;
             MoPub.initializeRewardedVideo();
-            MoPub.requestRewardedVideo(RewardedVideoAdUnit);
+            MoPub.requestRewardedVideo(RewardedVideoAdUnit, getMediationSettings());
 
             MoPub.requestInterstitialAd(InterstitialAdUnit);
 
@@ -66,8 +66,10 @@ public class MoPubAdManager : MonoBehaviour
         MoPubManager.onRewardedVideoClosedEvent -= onRewardedVideoClosedEvent;
     }
 
-    /*List<MoPubMediationSetting> getMediationSettings()
+    List<MoPubMediationSetting> getMediationSettings()
     {
+        var unitySettings = new MoPubMediationSetting("UnityAds");
+
         var adColonySettings = new MoPubMediationSetting("AdColony");
         adColonySettings.Add("withConfirmationDialog", false);
         adColonySettings.Add("withResultsDialog", true);
@@ -86,9 +88,10 @@ public class MoPubAdManager : MonoBehaviour
         mediationSettings.Add(adColonySettings);
         mediationSettings.Add(chartboostSettings);
         mediationSettings.Add(vungleSettings);
+        mediationSettings.Add(unitySettings);
 
         return mediationSettings;
-    }*/
+    }
 
     void onAdFailedEvent()
     {
