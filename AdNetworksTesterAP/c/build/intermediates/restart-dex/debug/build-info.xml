@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<instant-run
+    abi="x86"
+    api-level="23"
+    density="420dpi"
+    format="7"
+    timestamp="28607295781798"
+    token="5070428394980595406" >
+
+    <task
+        name="javac"
+        duration="351" />
+    <task
+        name="instant-run-dex"
+        duration="0" />
+    <task
+        name="instant-run-transform"
+        duration="195" />
+    <task
+        name="verifier"
+        duration="71" />
+
+    <artifact
+        location="D:\TopGamesStudio\AdNetworksTester\AdNetworksTesterAP\adNetworksTester\build\outputs\apk\adNetworksTester-debug.apk"
+        type="MAIN" />
+
+    <build timestamp="28607295781798" >
+        <artifact
+            location="D:\TopGamesStudio\AdNetworksTester\AdNetworksTesterAP\adNetworksTester\build\outputs\apk\adNetworksTester-debug.apk"
+            type="MAIN" />
+    </build>
+
+</instant-run>

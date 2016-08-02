@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="MoPubPlugin">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/moPub_lib/libs/MoPubPlugin.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

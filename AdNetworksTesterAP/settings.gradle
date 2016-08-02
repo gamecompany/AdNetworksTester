@@ -1,0 +1,5 @@
+include ':moPub_lib'
+include ':mopub'
+include ':mopubsupport'
+include ':unityandroidresources'
+include ':adNetworksTester'

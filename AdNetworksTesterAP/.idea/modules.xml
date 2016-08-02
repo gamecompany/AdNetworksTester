@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AdNetworksTesterAP.iml" filepath="$PROJECT_DIR$/AdNetworksTesterAP.iml" />
+      <module fileurl="file://$PROJECT_DIR$/adNetworksTester/adNetworksTester.iml" filepath="$PROJECT_DIR$/adNetworksTester/adNetworksTester.iml" />
+      <module fileurl="file://$PROJECT_DIR$/moPub_lib/moPub_lib.iml" filepath="$PROJECT_DIR$/moPub_lib/moPub_lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mopub/mopub.iml" filepath="$PROJECT_DIR$/mopub/mopub.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mopubsupport/mopubsupport.iml" filepath="$PROJECT_DIR$/mopubsupport/mopubsupport.iml" />
+      <module fileurl="file://$PROJECT_DIR$/unityandroidresources/unityandroidresources.iml" filepath="$PROJECT_DIR$/unityandroidresources/unityandroidresources.iml" />
+    </modules>
+  </component>
+</project>

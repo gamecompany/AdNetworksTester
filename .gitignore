@@ -5,5 +5,9 @@
 # Inverse ignore some stuff
 !/Assets/
 !/ProjectSettings/
+!/AdNetworksTesterAP/
+!/AP/
+!/APK/
+!/Library/
 !.gitignore
 !.gitattributes
