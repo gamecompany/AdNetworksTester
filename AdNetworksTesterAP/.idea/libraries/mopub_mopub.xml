@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="mopub.mopub">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/mopub/build/libs/mopub.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
